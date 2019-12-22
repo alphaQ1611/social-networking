@@ -82,7 +82,7 @@ router.get('/all',async (req,res)=>{
 
 router.post('/experience',passport.authenticate('jwt',{session:false}),async (req,res)=>{
     const {errors,isValid}=validateExperienceInput(req.body)
-    console.log(isValid)
+    
     if(!isValid){
         return res.status(400).send(errors)
     }
@@ -110,7 +110,7 @@ router.post('/experience',passport.authenticate('jwt',{session:false}),async (re
 
 router.post('/education',passport.authenticate('jwt',{session:false}),async (req,res)=>{
     const {errors,isValid}=validateEducationInput(req.body)
-    console.log(isValid)
+    
     if(!isValid){
         return res.status(400).send(errors)
     }
@@ -141,7 +141,7 @@ router.post('/education',passport.authenticate('jwt',{session:false}),async (req
 router.post('/',passport.authenticate('jwt',{session:false}),async (req,res)=>{
     const profileFields={}
     const {errors,isValid}=validateProfileInput(req.body)
-    console.log(isValid)
+    
     if(!isValid){
         return res.status(400).send(errors)
     }
@@ -194,12 +194,12 @@ router.delete('/experience/:exp_id',passport.authenticate('jwt',{session:false})
     const removeIndex=profile.experience.map(item=>item.id).indexOf(req.params.exp_id)
     profile.experience.splice(removeIndex,1)
     const prof=await profile.save()
-    res.send(profile)
+    res.send(prof)
 
 })
 router.delete('/education/:edu_id',passport.authenticate('jwt',{session:false}),async (req,res)=>{
     const profile=await Profile.findOne({user:req.user.id})
-    const removeIndex=profile.education.map(item=>item.id).indexOf(req.params.exp_id)
+    const removeIndex=profile.education.map(item=>item.id).indexOf(req.params.edu_id)
     profile.education.splice(removeIndex,1)
     const prof=await profile.save()
     res.send(prof)
