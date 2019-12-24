@@ -41,6 +41,7 @@ router.get('/handle/:handle',async (req,res)=>{
             errors.noprofile="There is no profile for this handle!"
             res.status(404).send(errors)
         }
+        
         res.send(profile)
     }
     catch(e){

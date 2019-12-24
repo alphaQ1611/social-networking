@@ -23,6 +23,10 @@ import store from './store'
 import { clearCurrentProfile } from './actions/profileActions';
 import AddEducation from './components/add-credentials/AddEducation';
 import Profiles from './components/profiles/Profiles';
+import Profile from './components/profile/Profile';
+import NotFound from './components/not-found/NotFound';
+import Posts from './components/post/Posts';
+import Post from './components/post/Post';
 
 if(localStorage.jwtToken){
   setAuthToken(localStorage.jwtToken)
@@ -51,6 +55,7 @@ function App() {
             <Route exact path="/login" component ={Login}/>
             <Route exact path="/register" component ={Register}/>
             <Route exact path ='/profiles' component={Profiles}/>
+            <Route exact path ='/profile/:handle' component={Profile}/>
             <Switch>
             <PrivateRoutes exact path="/dashboard" component ={Dashboard}/>
             </Switch>
@@ -66,6 +71,15 @@ function App() {
             <Switch>
             <PrivateRoutes exact path='/add-education' component={AddEducation}/>
             </Switch>
+            <Switch>
+            <PrivateRoutes exact path='/feed' component={Posts}/>
+            </Switch>
+            <Switch>
+            <PrivateRoutes exact path='/post/:id' component={Post}/>
+            </Switch>
+            <Route exact path ='/not-found' component={NotFound}/>
+
+            
             </div>
           
             

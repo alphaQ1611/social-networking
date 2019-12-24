@@ -2,9 +2,6 @@ const express=require('express')
 
 const router=express.Router()
 
-router.get('/test',(req,res)=>{
-    res.json({msg:'Posts Work!'})
-})
 
 const passport=require('passport')
 const mongoose=require('mongoose')
@@ -25,7 +22,8 @@ router.post('/',passport.authenticate('jwt',{session:false}),async (req,res)=>{
         user:req.user.id
     })
     const p=await post.save()
-    res.send(p)
+    
+    res.send(post)
 })
 
 router.get('/',async (req,res)=>{
@@ -42,6 +40,7 @@ router.get('/',async (req,res)=>{
 router.get('/:id',async (req,res)=>{
     try {
         const post= await Post.findById(req.params.id)
+        console.log(post)
         res.send(post)
     } catch (e) {
         res.status(404).send({nopost:'No post found with this id'})
